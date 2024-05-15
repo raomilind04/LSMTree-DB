@@ -99,24 +99,10 @@ func (cl *CommitLog) readLog() []engine.Record {
     fileScanner := bufio.NewScanner(file)
     fileScanner.Split(bufio.ScanLines)
 
-    var commitlogRecords []engine.Record
-
+    var commitlogRecord []engine.Record
+    
     for fileScanner.Scan() {
-        commitlogRecord := createRecordFromFile(fileScanner.Text())
-        commitlogRecords = append(commitlogRecords, commitlogRecord)
+        commitlogRecord = append(commitlogRecord, createRecordFromFile(fileScanner.Text()))
     }
 
-    return commitlogRecords
-}
-
-func (cl *CommitLog) size() uint64 {
-    return cl.Size
-}
-
-func (cl *CommitLog) clear() {
-    if err := os.Remove(cl.Filepath); err != nil {
-        log.Panicf("Unable to open the file %s :  %v", cl.Filepath, err); 
-    }
-    createLogFile(cl.Filepath)
-    cl.Size = 0
 }
