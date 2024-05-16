@@ -70,7 +70,7 @@ func createLogFile(filepath string) {
     defer file.Close()
 }
 
-func (cl *CommitLog) append(newRecord engine.Record) {
+func (cl *CommitLog) Append(newRecord engine.Record) {
     file, err := os.OpenFile(cl.Filepath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
     if err != nil {
         log.Panicf("Unable to open the file %s :  %v", cl.Filepath, err); 
@@ -89,7 +89,7 @@ func createRecordFromFile(line string) engine.Record {
     return engine.NewRecord(data[0], data[1])
 }
 
-func (cl *CommitLog) readLog() []engine.Record {
+func (cl *CommitLog) ReadLog() []engine.Record {
     file, err := os.Open(cl.Filepath)
     if err != nil {
         log.Panicf("Unable to open the file %s :  %v", cl.Filepath, err); 
@@ -109,11 +109,11 @@ func (cl *CommitLog) readLog() []engine.Record {
     return commitlogRecords
 }
 
-func (cl *CommitLog) size() uint64 {
+func (cl *CommitLog) GetSize() uint64 {
     return cl.Size
 }
 
-func (cl *CommitLog) clear() {
+func (cl *CommitLog) Clear() {
     if err := os.Remove(cl.Filepath); err != nil {
         log.Panicf("Unable to open the file %s :  %v", cl.Filepath, err); 
     }
