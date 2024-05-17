@@ -109,10 +109,6 @@ func (cl *CommitLog) ReadLog() []engine.Record {
     return commitlogRecords
 }
 
-func (cl *CommitLog) GetSize() uint64 {
-    return cl.Size
-}
-
 func (cl *CommitLog) Clear() {
     if err := os.Remove(cl.Filepath); err != nil {
         log.Panicf("Unable to open the file %s :  %v", cl.Filepath, err); 
