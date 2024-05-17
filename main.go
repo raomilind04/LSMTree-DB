@@ -18,5 +18,12 @@ func main() {
     for i := 0; i < 10; i++ {
         cl.Append(e)
     }
-    fmt.Println(cl.Size)
+    fmt.Println(cl.GetSize())
+
+    list := cl.ReadLog()
+    fmt.Println(len(list))
+    fmt.Printf("%s %s", list[0].Key, list[0].Value)
+
+    cl.Clear()
+    fmt.Println(cl.GetSize())
 }
